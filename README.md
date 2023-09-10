@@ -1,7 +1,7 @@
 # laravel-fireflies
 
 
-> A Laravel Package for working with fireflies seamlessly
+> A Laravel Package for working with fireflies api seamlessly
 
 ## Installation
 
@@ -123,7 +123,7 @@ class FireFliesController extends Controller
 
      public function fetchUser(){
         $arr = ['name', 'email', 'is_admin','integrations'];
-        $id = "TS6MS4upoau74JEmi";
+        $id = "user_id";
         return Fireflies::handleUserQuery($arr, $id);
 
     }
