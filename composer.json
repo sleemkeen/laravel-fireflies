@@ -1,0 +1,64 @@
+{
+    "name": "sleemkeen/fireflies",
+    "description": "PHP SDK for Fireflies.ai API",
+    "version": "1.0.0",
+    "type": "library",
+    "require": {
+        "php": "^7.4|^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "gmostafa/php-graphql-client": "^1.13",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench": "^6.0|^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sleemkeen\\Fireflies\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sleemkeen\\Fireflies\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sleemkeen\\Fireflies\\FirefliesServiceProvider"
+            ],
+            "aliases": {
+                "Fireflies": "Sleemkeen\\Fireflies\\Facades\\Fireflies"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Haruna Ahmadu",
+            "email": "akhmadharuna@gmail.com"
+        }
+    ],
+    "keywords": [
+        "laravel",
+        "fireflies",
+        "transcription",
+        "meeting",
+        "api"
+    ],
+    "support": {
+        "issues": "https://github.com/sleemkeen/laravel-fireflies/issues",
+        "source": "https://github.com/sleemkeen/laravel-fireflies"
+    }
+}
