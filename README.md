@@ -26,6 +26,8 @@ FIREFLIES_API_KEY=your-api-key
 
 ## Usage
 
+use Sleemkeen\Fireflies\Fireflies;
+
 ### User Management
 ```php
 // Get current user
