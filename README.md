@@ -76,8 +76,6 @@ $result = Fireflies::uploadAudio($audioUrl, $options);
 // Add to live meeting
 $result = Fireflies::addToLiveMeeting($meetingLink);
 
-// Get meeting summary
-$summary = Fireflies::getMeetingSummary($meetingId, $fields);
 ```
 
 ### AI Apps

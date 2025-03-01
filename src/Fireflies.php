@@ -179,7 +179,7 @@ class Fireflies
         try {
             $queryString = $query['query'];
             $variables = $query['variables'] ?? [];
-            
+
             $response = $this->client->post('', [
                 'json' => [
                     'query' => $queryString,
@@ -334,7 +334,6 @@ class Fireflies
     private static function buildNestedQuery(string $queryName, array $fields, array $arguments = [], array $changeableInnerQuery = [])
     {
         $queryString = self::buildQueryString($queryName, $arguments, $fields, $changeableInnerQuery);
-        dd($queryString);
        
         $response = self::getInstance()->executeQuery([
             'query' => $queryString,
