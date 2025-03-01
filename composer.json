@@ -1,7 +1,7 @@
 {
     "name": "sleemkeen/fireflies",
     "description": "PHP SDK for Fireflies.ai API",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "library",
     "require": {
         "php": "^7.4|^8.0",
