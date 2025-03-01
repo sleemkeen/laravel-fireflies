@@ -26,10 +26,9 @@ FIREFLIES_API_KEY=your-api-key
 
 ## Usage
 
-use Sleemkeen\Fireflies\Fireflies;
-
 ### User Management
 ```php
+use Sleemkeen\Fireflies\Fireflies;
 // Get current user
 $user = Fireflies::getCurrentUser($fields);
 
