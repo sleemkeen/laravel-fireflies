@@ -1,11 +1,11 @@
-I'll update the README.md to document the new flexible field selection feature and provide examples:
-
-```markdown:packages/laravel-fireflies/README.md
+```markdown:README.md
 # Laravel Fireflies
 
-A Laravel package for interacting with the Fireflies.ai GraphQL API.
+A Laravel package for integrating with the Fireflies.ai API.
 
 ## Installation
+
+You can install the package via composer:
 
 ```bash
 composer require sleemkeen/laravel-fireflies
@@ -21,162 +21,133 @@ php artisan vendor:publish --provider="Sleemkeen\Fireflies\FirefliesServiceProvi
 
 Add your Fireflies API key to your `.env` file:
 
-```
+```env
 FIREFLIES_API_KEY=your-api-key
 ```
 
 ## Usage
 
-### Basic Usage
-
+### User Management
 ```php
-use Sleemkeen\Fireflies\Fireflies;
-
-// Get user information
-$fields = [
-    'user_id',
-    'email',
-    'name',
-    'num_transcripts'
-];
-$user = Fireflies::getUser(null, $fields);
+// Get current user
+$user = Fireflies::getCurrentUser($fields);
 
 // Get specific user
-$userId = 'user123';
-$user = Fireflies::getUser($userId, $fields);
+$user = Fireflies::getUser($fields, $userId);
+
+// Set user role
+$result = Fireflies::setUserRole($userId, $role);
 ```
 
-### Working with Transcripts
-
+### Transcripts
 ```php
-// Get transcripts with nested fields
-$fields = [
-    'id',
-    'title',
-    'date',
-    'sentences' => [
-        'index',
-        'text',
-        'speaker_id',
-        'start_time',
-        'end_time',
-        'ai_filters' => [
-            'metric'
-        ]
-    ],
-    'speakers' => [
-        'id',
-        'name'
-    ]
-];
-
+// Get all transcripts
 $transcripts = Fireflies::getTranscripts($fields);
+
+// Get specific transcript
+$transcript = Fireflies::getTranscript($transcriptId, $fields);
+
+// Delete transcript
+$result = Fireflies::deleteTranscript($transcriptId);
 ```
 
-### Working with Bites
-
+### Bites
 ```php
-// Get bite information
-$fields = [
-    'id',
-    'name',
-    'status',
-    'user' => [
-        'name',
-        'id'
-    ],
-    'captions' => [
-        'text',
-        'speaker_name',
-        'start_time'
-    ]
-];
+// Get all bites
+$bites = Fireflies::getBites($fields);
 
+// Get specific bite
 $bite = Fireflies::getBite($biteId, $fields);
 
 // Get transcript bites
 $bites = Fireflies::getTranscriptBites($transcriptId, $fields);
+
+// Create bite
+$bite = Fireflies::createBite($transcriptId, $startTime, $endTime);
+
+// Update bite privacy
+$result = Fireflies::updateBitePrivacy($biteId, $privacies);
 ```
 
-### Meeting Summaries
-
+### Meeting Management
 ```php
-// Get meeting summary
-$fields = [
-    'id',
-    'sections' => [
-        'title',
-        'content',
-        'type',
-        'confidence'
-    ],
-    'keyPoints',
-    'topics',
-    'actionItems'
-];
+// Upload audio
+$result = Fireflies::uploadAudio($audioUrl, $options);
 
+// Add to live meeting
+$result = Fireflies::addToLiveMeeting($meetingLink);
+
+// Get meeting summary
 $summary = Fireflies::getMeetingSummary($meetingId, $fields);
 ```
 
-### User Statistics
-
+### AI Apps
 ```php
-// Get user stats
-$fields = [
-    'user_id',
-    'num_transcripts',
-    'minutes_consumed',
-    'recent_transcript',
-    'recent_meeting'
-];
-
-$stats = Fireflies::getUserStats($userId, $fields);
-```
-
-### Upload Audio
-
-```php
+// Get AI Apps outputs
 $options = [
-    'title' => 'Meeting Title',
-    'attendees' => ['user1@example.com', 'user2@example.com']
+    'app_id' => 'your-app-id',
+    'transcript_id' => 'transcript-id',
+    'skip' => 0,
+    'limit' => 10
 ];
-
-$result = Fireflies::uploadAudio('https://example.com/audio.mp3', $options);
+$outputs = Fireflies::getAIAppsOutputs($options, $fields);
 ```
 
-## Field Selection
+## Available Methods
 
-All query methods support flexible field selection through arrays. You can:
+### User Methods
+- `getCurrentUser(array $fields)`
+- `getUser(array $fields, string $userId = null)`
+- `setUserRole(string $userId, string $role)`
 
-- Select specific fields: `['id', 'name', 'email']`
-- Include nested fields: `['user' => ['id', 'name']]`
-- Deep nesting: `['sentences' => ['ai_filters' => ['metric']]]`
+### Transcript Methods
+- `getTranscripts(array $fields)`
+- `getTranscript(string $transcriptId, array $fields)`
+- `deleteTranscript(string $transcriptId)`
 
-## Error Handling
+### Bite Methods
+- `getBites(array $fields, array $options)`
+- `getBite(string $biteId, array $fields)`
+- `getTranscriptBites(string $transcriptId, array $fields)`
+- `createBite(string $transcriptId, float $startTime, float $endTime)`
+- `updateBitePrivacy(string $biteId, array $privacies)`
 
-The package throws `IsNullException` for:
-- Missing API key
-- Invalid queries
-- API errors
+### Meeting Methods
+- `uploadAudio(string $audioUrl, array $options)`
+- `addToLiveMeeting(string $meetingLink)`
+- `getMeetingSummary(string $meetingId, array $fields)`
 
-```php
-try {
-    $user = Fireflies::getUser($userId, $fields);
-} catch (IsNullException $e) {
-    // Handle error
-}
+### AI Apps Methods
+- `getAIAppsOutputs(array $options, array $fields)`
+
+## Testing
+
+```bash
+composer test
 ```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security
+
+If you discover any security related issues, please email akhmadharuna@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [Haruna Ahmadu](https://github.com/sleemkeen)
+- [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 ```
 
-This README now:
-1. Documents the flexible field selection feature
-2. Shows examples of nested queries
-3. Provides clear usage examples
-4. Explains error handling
-5. Includes configuration instructions
+This updated README:
+1. Added the new AI Apps section with usage examples
+2. Added the `getAIAppsOutputs` method to the Available Methods section
+3. Maintained the existing structure while incorporating the new functionality
+4. Removed any controller-specific implementation details to keep the focus on the package usage
 
-Let me know if you'd like me to add or modify anything!
+The documentation now provides a clear overview of all available features, including the new AI Apps functionality, while maintaining a clean and professional format.
