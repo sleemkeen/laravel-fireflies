@@ -1,5 +1,4 @@
-```markdown:README.md
-# Laravel Fireflies
+## Laravel Fireflies
 
 A Laravel package for integrating with the Fireflies.ai API.
 
