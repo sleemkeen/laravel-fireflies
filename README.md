@@ -91,6 +91,33 @@ $options = [
 $outputs = Fireflies::getAIAppsOutputs($options, $fields);
 ```
 
+### Meeting Summaries
+```php
+// Get all meeting summaries
+$fields = [
+    'keywords',
+    'action_items',
+    'outline',
+    'shorthand_bullet',
+    'overview',
+    'bullet_gist',
+    'gist',
+    'short_summary',
+    'short_overview',
+    'meeting_type',
+    'topics_discussed',
+    'transcript_chapters',
+    'extended_sections' => [
+        'content',
+        'title'
+    ]
+];
+$summaries = Fireflies::getMeetingSummaries($fields);
+
+// Get specific meeting summary
+$summary = Fireflies::getMeetingSummary($meetingId, $fields);
+```
+
 ## Available Methods
 
 ### User Methods
