@@ -113,6 +113,7 @@ $outputs = Fireflies::getAIAppsOutputs($options, $fields);
 ### Meeting Methods
 - `uploadAudio(string $audioUrl, array $options)`
 - `addToLiveMeeting(string $meetingLink)`
+- `getMeetingSummaries(array $fields)`
 - `getMeetingSummary(string $meetingId, array $fields)`
 
 ### AI Apps Methods
