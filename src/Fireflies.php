@@ -452,15 +452,39 @@ private static function buildComplexQueryString($queryName, $arguments = [], $se
     }
 
     /**
+     * Get meeting summaries
+     *
+     * @param array $fields Required fields to retrieve
+     * @return array|null
+     */
+    public static function getMeetingSummaries(array $fields = [])
+    {
+        // If no fields provided, return minimal default fields
+        $fields = [
+            'id',
+            'summary' => $fields
+        ];
+        
+
+        return self::buildNestedQuery('transcripts', $fields);
+    }
+
+    /**
      * Get meeting summary
      *
      * @param string $meetingId
      * @param array $fields Required fields to retrieve
      * @return array|null
      */
-    public static function getMeetingSummary($meetingId, array $fields)
+    public static function getMeetingSummary($meetingId, array $fields = [])
     {
-        return 'Api not available yet';
+        // If no fields provided, return minimal default fields
+        $fields = [
+            'id',
+            'summary' => $fields
+        ];
+        
+        return self::buildNestedQuery('transcript', $fields, ['id' => $meetingId]);
     }
 
     /**
